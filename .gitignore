@@ -50,22 +50,12 @@ coverage.xml
 *.mo
 *.pot
 
-# Django stuff:
-*.log
-local_settings.py
-
 # Flask stuff:
 instance/
 .webassets-cache
 
-# Scrapy stuff:
-.scrapy
-
-# Sphinx documentation
-docs/_build/
-
-# PyBuilder
-target/
+# environment
+.env
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -73,29 +63,11 @@ target/
 # pyenv
 .python-version
 
-# celery beat schedule file
-celerybeat-schedule
-
-# SageMath parsed files
-*.sage.py
-
-# dotenv
-.env
-
 # virtualenv
 .venv
 venv/
 ENV/
 
-# Spyder project settings
-.spyderproject
-.spyproject
+# vscode
+.code/
 
-# Rope project settings
-.ropeproject
-
-# mkdocs documentation
-/site
-
-# mypy
-.mypy_cache/
