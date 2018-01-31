@@ -69,5 +69,5 @@ venv/
 ENV/
 
 # vscode
-.code/
+.vscode/
 
