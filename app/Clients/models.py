@@ -1,8 +1,8 @@
 from app import db
-from app.Mixins import TimeStampMixin
+from app.Mixins.CreateMixin import CreateMixin
+from app.Mixins.TimeStampMixin import TimestampMixin
 
-
-class Client(TimeStampMixin, db.Model):
+class Client(TimeStampMixin, CreateMixin, db.Model):
     name = db.Columnt(db.String(120), nullable=False, unique=True)
 
     id = db.Column(db.Integer, primary_key=True)
