@@ -1,0 +1,6 @@
+test:
+  adapter:  postgresql
+  database: featurette_test
+  username: usr
+  password: pass
+  encoding: unicode
