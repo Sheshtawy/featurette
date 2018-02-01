@@ -1,5 +1,6 @@
 from app.Clients.models import Client
 
+
 class TestClient(object):
 
     def test_create(self, db, app, session):

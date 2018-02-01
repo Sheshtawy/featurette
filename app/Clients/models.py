@@ -2,6 +2,7 @@ from app.db import db
 from app.Mixins.CreateMixin import CreateMixin
 from app.Mixins.TimeStampMixin import TimeStampMixin
 
+
 class Client(TimeStampMixin, CreateMixin, db.Model):
     name = db.Column(db.String(120), nullable=False, unique=True)
 
