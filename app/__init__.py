@@ -4,7 +4,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 from flask_sqlalchemy import BaseQuery
 from app.db import db
-
+from app.ma import ma
 
 # def create_app(name, config, config_type):
 #     """
@@ -16,6 +16,7 @@ from app.db import db
 
 DbSession = db.create_scoped_session()
 # DbSession = scoped_session(sessionmaker(), scopefunc=_app_ctx_stack.__ident_func__)
+
 
 def create_app(name_handler, config_object):
     """
@@ -34,6 +35,8 @@ def create_app(name_handler, config_object):
     # # mitsuhiko's Flask-SQLAlchemy
     # DbSession.configure(bind=app.engine, query_cls=BaseQuery)
     db.init_app(app)
+    ma.init_app(app)
+
     @app.teardown_appcontext
     def teardown(exception=None):
         global DbSession

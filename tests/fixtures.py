@@ -6,6 +6,7 @@ from app.db import db as _db
 
 Base = declarative_base()
 
+
 @pytest.yield_fixture(scope='session')
 def app():
     """
@@ -37,7 +38,7 @@ def db(app):
         yield _db
     # session.remove()
         _db.drop_all()
-    
+
 
 @pytest.yield_fixture(scope="function")
 def session(app):

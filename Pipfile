@@ -14,10 +14,12 @@ pytest = "*"
 
 [packages]
 
-SQLAlchemy = "*"
+sqlalchemy = "*"
 "psycopg2" = "*"
-Flask-SQLAlchemy = "*"
-Flask = "*"
+flask-sqlalchemy = "*"
+flask = "*"
+flask-marshmallow = "*"
+marshmallow-sqlalchemy = "*"
 
 
 [requires]

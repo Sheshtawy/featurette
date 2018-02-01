@@ -28,17 +28,17 @@ class FeatureRequest(TimeStampMixin, CreateMixin, db.Model):
 
     def __repr__(self):
         return '<FeatureRequest title: %r >' % self.title
-    
+
     @classmethod
     def update_client_priority(cls, instance):
         feature_requests = cls.query \
             .filter_by(client_id=instance.client_id) \
             .filter(cls.client_priority >= instance.client_priority) \
             .filter(cls.id != instance.id)
-        
+
         if(feature_requests.all() is not None):
             for fr in feature_requests:
                 fr.client_priority += 1
                 db.session.add(fr)
-            
+
             db.session.commit()

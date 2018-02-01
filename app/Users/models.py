@@ -3,6 +3,7 @@ from app.db import db
 from app.Mixins.CreateMixin import CreateMixin
 from app.Mixins.TimeStampMixin import TimeStampMixin
 
+
 class User(TimeStampMixin, CreateMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)

@@ -4,6 +4,7 @@ from app.Users.models import User
 from app.Clients.models import Client
 from app.FeatureRequests.models import FeatureRequest, ProductArea
 
+
 class TestFeatureRequest(object):
 
     def test_create(self, app, db, session):
@@ -50,4 +51,3 @@ class TestFeatureRequest(object):
         assert another_feature.id == 2
         assert another_feature.client_priority == 1
         assert feature.client_priority == 2
-

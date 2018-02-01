@@ -1,4 +1,6 @@
 from app.Users.models import User
+
+
 class TestUser(object):
 
     def test_create(self, db, app, session):
