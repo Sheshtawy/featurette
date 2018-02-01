@@ -1,7 +1,7 @@
-from app import db
+from flask import current_app
+from app.db import db
 from app.Mixins.CreateMixin import CreateMixin
-from app.Mixins.TimeStampMixin import TimestampMixin
-
+from app.Mixins.TimeStampMixin import TimeStampMixin
 
 class User(TimeStampMixin, CreateMixin, db.Model):
     username = db.Column(db.String(80), unique=True, nullable=False)
@@ -13,4 +13,4 @@ class User(TimeStampMixin, CreateMixin, db.Model):
         'FeatureRequest', backref='creator', lazy='select')
 
     def __repr__(self):
-        return '<User username: %r email: %r >' % self.username, self.email
+        return '<User username: {} email: {} >'.format(self.username, self.email)
