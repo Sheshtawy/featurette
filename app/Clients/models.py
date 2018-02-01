@@ -14,4 +14,4 @@ class Client(TimeStampMixin, CreateMixin, db.Model):
                                        )
 
     def __repr__(self):
-        return '<Client name: %r id: %r >' % self.name, self.id
+        return '<Client name: {} id: {} >'.format(self.name, self.id)
