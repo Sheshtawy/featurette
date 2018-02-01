@@ -7,13 +7,18 @@ name = "pypi"
 
 [dev-packages]
 
+pylint = "*"
+"autopep8" = "*"
 pytest = "*"
+jupyter = "*"
 
 
 [packages]
 
 sqlalchemy = "*"
 "psycopg2" = "*"
+flask-sqlalchemy = "*"
+flask = "*"
 
 
 [requires]
