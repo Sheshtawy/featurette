@@ -1,0 +1,16 @@
+import os
+
+DEBUG = os.environ.get('FLASK_DEBUG', True)
+TESTING = os.environ.get('FLASK_TESTING', True)
+SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'super secret key')
+
+
+SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI', 'postgresql://usr:pass@localhost:5432/test_featurette')
+SQLALCHEMY_ECHO = os.environ.get('SQLALCHEMY_ECHO', False)
+SQLALCHEMY_RECORD_QUERIES = os.environ.get('SQLALCHEMY_RECORD_QUERIES', False)
+SQLALCHEMY_POOL_SIZE = os.environ.get('SQLALCHEMY_POOL_SIZE', 7)
+SQLALCHEMY_POOL_TIMEOUT = os.environ.get('SQLALCHEMY_POOL_TIMEOUT', 20)
+SQLALCHEMY_POOL_RECYCLE = os.environ.get('SQLALCHEMY_POOL_RECYCLE', 6000)
+SQLALCHEMY_MAX_OVERFLOW = os.environ.get('SQLALCHEMY_MAX_OVERFLOW', 2)
+SQLALCHEMY_TRACK_MODIFICATIONS = False
+
