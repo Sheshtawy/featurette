@@ -14,20 +14,13 @@ def app():
     """
     _app = create_app("testingsession", config_object=settings)
 
-    # Base is declarative_base()
     Base.metadata.create_all(bind=_app.engine)
     _app.connection = _app.engine.connect()
 
-    # No idea why, but between this app() fixture and session()
-    # fixture there is being created a new session object
-    # somewhere.  And in my tests I found out that in order to
-    # have transactions working properly, I need to have all these
-    # scoped sessions configured to use current connection.
     DbSession.configure(bind=_app.connection)
 
     yield _app
 
-    # the code after yield statement works as a teardown
     _app.connection.close()
     Base.metadata.drop_all(bind=_app.engine)
 
@@ -54,8 +47,6 @@ def session(app):
     """
     app.transaction = app.connection.begin()
 
-    # pushing new Flask application context for multiple-thread
-    # tests to work
     ctx = app.app_context()
     ctx.push()
 
@@ -63,7 +54,6 @@ def session(app):
 
     yield session
 
-    # the code after yield statement works as a teardown
     app.transaction.close()
     session.close()
     ctx.pop()

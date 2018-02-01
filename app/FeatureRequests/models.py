@@ -3,6 +3,8 @@ from app.db import db
 from app.Mixins.CreateMixin import CreateMixin
 from app.Mixins.TimeStampMixin import TimeStampMixin
 
+from sqlalchemy import event
+
 
 class ProductArea(enum.Enum):
     POLICIES = 'Policies'
@@ -26,13 +28,18 @@ class FeatureRequest(TimeStampMixin, CreateMixin, db.Model):
 
     def __repr__(self):
         return '<FeatureRequest title: %r >' % self.title
-
-    def update_client_priority(self):
-        feature_requests = FeatureRequest.query.filter_by(client_id=self.client_id).filter_by(FeatureRequest.client_priority >= self.client_priority)
-
-        if(feature_requests is not None):
+    
+    @classmethod
+    def update_client_priority(cls, instance):
+        feature_requests = cls.query \
+            .filter_by(client_id=instance.client_id) \
+            .filter(cls.client_priority >= instance.client_priority) \
+            .filter(cls.id != instance.id)
+        
+        if(feature_requests.all() is not None):
             for fr in feature_requests:
                 fr.client_priority += 1
+                import pdb; pdb.set_trace()
                 db.session.add(fr)
-
+            
             db.session.commit()
