@@ -3,7 +3,7 @@ machine:
     version: 3.6.3
   pre:
     - sudo -u postgres psql -p 5432 -c "create user usr with password 'pass';"
-    - sudo -u postgres psql -p 5433 -c "alter user usr with superuser;"
+    - sudo -u postgres psql -p 5432 -c "alter user usr with superuser;"
 dependencies:
   pre:
     - pip install pipenv
