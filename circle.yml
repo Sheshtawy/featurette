@@ -1,9 +1,8 @@
 machine:
   python:
     version: 3.6.3
-
-  services:
-    - postgresql
+  environment:
+    - DATABASE_URL: postgresql://usr:@127.0.0.1:5432/featurette_test
 dependencies:
   pre:
     - pip install pipenv
