@@ -6,6 +6,7 @@ dependencies:
     - pip install pipenv
   override:
     - pipenv install
+    - pipenv install --dev
 test:
   override:
     - pytest

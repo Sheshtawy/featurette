@@ -10,15 +10,14 @@ name = "pypi"
 pylint = "*"
 "autopep8" = "*"
 pytest = "*"
-jupyter = "*"
 
 
 [packages]
 
-sqlalchemy = "*"
+SQLAlchemy = "*"
 "psycopg2" = "*"
-flask-sqlalchemy = "*"
-flask = "*"
+Flask-SQLAlchemy = "*"
+Flask = "*"
 
 
 [requires]
