@@ -1,7 +1,7 @@
 import enum
-from app import db
+from app.db import db
 from app.Mixins.CreateMixin import CreateMixin
-from app.Mixins.TimeStampMixin import TimestampMixin
+from app.Mixins.TimeStampMixin import TimeStampMixin
 
 
 class ProductArea(enum.Enum):
@@ -28,9 +28,7 @@ class FeatureRequest(TimeStampMixin, CreateMixin, db.Model):
         return '<FeatureRequest title: %r >' % self.title
 
     def update_client_priority(self):
-        feature_requests = FeatureRequest.query
-            .filter(FeatureRequest.client_id=self.client_id)
-            .filter_by(FeatureRequest.client_priority >= self.client_priority)
+        feature_requests = FeatureRequest.query.filter_by(client_id=self.client_id).filter_by(FeatureRequest.client_priority >= self.client_priority)
 
         if(feature_requests is not None):
             for fr in feature_requests:
