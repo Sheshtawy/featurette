@@ -1,6 +1,10 @@
 machine:
   python:
     version: 3.6.3
+  environment:
+    - DATABASE_URL: postgresql://usr:pass@127.0.0.1:5432/featurette_test
+  pre:
+    - sudo -u postgres psql -p 5432 -c "create user usr with password 'pass';"
 dependencies:
   pre:
     - pip install pipenv
