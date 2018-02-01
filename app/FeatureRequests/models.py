@@ -39,7 +39,6 @@ class FeatureRequest(TimeStampMixin, CreateMixin, db.Model):
         if(feature_requests.all() is not None):
             for fr in feature_requests:
                 fr.client_priority += 1
-                import pdb; pdb.set_trace()
                 db.session.add(fr)
             
             db.session.commit()
