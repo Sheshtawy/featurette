@@ -5,7 +5,7 @@ TESTING = os.environ.get('FLASK_TESTING', True)
 SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'super secret key')
 
 
-SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI', 'postgresql://usr:pass@localhost:5432/test_featurette')
+SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI', 'postgresql://usr:pass@127.0.0.1:5432/test_featurette')
 SQLALCHEMY_ECHO = os.environ.get('SQLALCHEMY_ECHO', False)
 SQLALCHEMY_RECORD_QUERIES = os.environ.get('SQLALCHEMY_RECORD_QUERIES', False)
 SQLALCHEMY_POOL_SIZE = os.environ.get('SQLALCHEMY_POOL_SIZE', 7)
