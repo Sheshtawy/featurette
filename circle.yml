@@ -5,6 +5,7 @@ machine:
     - sudo -u postgres psql -p 5432 -c "create user usr with password 'pass';"
     - sudo -u postgres psql -p 5432 -c "alter user usr with superuser;"
     - sudo -u postgres psql -p 5432 -c "create database test_featurette;"
+    
 dependencies:
   pre:
     - pip install pipenv
