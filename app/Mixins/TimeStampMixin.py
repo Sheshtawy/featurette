@@ -1,7 +1,7 @@
 from datetime import datetime
-from app import db
+from app.db import db
 
-class TimestampMixin(object):
+class TimeStampMixin(object):
     created = db.Column(
         db.DateTime, nullable=False, default=datetime.utcnow)
     updated = db.Column(db.DateTime, onupdate=datetime.utcnow)
