@@ -1,0 +1,10 @@
+.featurette-card {
+    max-width: 75%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.featurette-body {
+    padding-top: 20px;
+}
