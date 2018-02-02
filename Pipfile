@@ -10,6 +10,7 @@ name = "pypi"
 pylint = "*"
 "autopep8" = "*"
 pytest = "*"
+requests = "*"
 
 
 [packages]
@@ -20,6 +21,8 @@ flask-sqlalchemy = "*"
 flask = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+sh = "*"
+marshmallow-enum = "*"
 
 
 [requires]
