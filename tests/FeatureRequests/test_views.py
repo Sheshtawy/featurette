@@ -24,7 +24,10 @@ class TestFeatureRequestsViewsGet(object):
     def test_get_not_found(self, app, db, session):
         client = app.test_client()
         response = client.get('/feature_requests/')
-        assert response.status_code == 404
+        data = json.loads(response.get_data())
+        
+        assert response.status_code == 200
+        assert data['status'] == 404
 
     def test_get(self, app, db, session, feature_request):
         client = app.test_client()
@@ -84,8 +87,23 @@ class TestFeatureRequestsViewsPost(object):
         assert data['status'] == 400
         
 
-    def test_put(self, app, db, session):
-        pass
+    def test_put(self, app, db, session, feature_request):
+        client = app.test_client()
+        response = client.put('/feature_requests/{}'.format(feature_request.id), 
+            data=json.dumps({
+                'title':'a feature updated request',
+                'description':'a description',
+                'client_priority':2,
+                'target_date': str(datetime(2020, 1, 1)),
+                'product_area':'Billing'}
+            ),
+            headers={'Content-Type':'application/json'}
+        )
+
+        assert response.status_code == 200
+        data = json.loads(response.get_data())
+        assert data['client_priority'] == 2
+        assert data['title'] == 'a feature updated request'
 
     def test_delete(self, app, db, session):
         pass
