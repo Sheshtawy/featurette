@@ -6,6 +6,7 @@ from flask_sqlalchemy import BaseQuery
 from app.db import db
 from app.ma import ma
 
+from app.FeatureRequests.views import FeatureRequestsViews
 # def create_app(name, config, config_type):
 #     """
 #     App factory
@@ -16,6 +17,14 @@ from app.ma import ma
 
 DbSession = db.create_scoped_session()
 # DbSession = scoped_session(sessionmaker(), scopefunc=_app_ctx_stack.__ident_func__)
+
+def register_api(app, view, endpoint, url, pk='id', pk_type='int'):
+    view_func = view.as_view(endpoint)
+    app.add_url_rule(url, defaults={pk: None},
+                     view_func=view_func, methods=['GET',])
+    app.add_url_rule(url, view_func=view_func, methods=['POST',])
+    app.add_url_rule('%s<%s:%s>' % (url, pk_type, pk), view_func=view_func,
+                     methods=['GET', 'PUT', 'DELETE'])
 
 
 def create_app(name_handler, config_object):
@@ -29,11 +38,8 @@ def create_app(name_handler, config_object):
     app.config.from_object(config_object)
     app.engine = create_engine(app.config["SQLALCHEMY_DATABASE_URI"])
 
-    # global DbSession
-    # # BaseQuery class provides some additional methods like
-    # # first_or_404() or get_or_404() -- borrowed from
-    # # mitsuhiko's Flask-SQLAlchemy
-    # DbSession.configure(bind=app.engine, query_cls=BaseQuery)
+    register_api(app, FeatureRequestsViews, 'feature_request_api', '/feature_requests/', 'id')
+    
     db.init_app(app)
     ma.init_app(app)
 
