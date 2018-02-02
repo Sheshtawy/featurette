@@ -1,6 +1,6 @@
 import os
 
-DEBUG = os.environ.get('FLASK_DEBUG', True)
+DEBUG = os.environ.get('FLASK_DEBUG', False)
 TESTING = os.environ.get('FLASK_TESTING', True)
 SECRET_KEY = os.environ.get('FLASK_SECRET_KEY', 'super secret key')
 
