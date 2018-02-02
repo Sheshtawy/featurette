@@ -1,4 +1,8 @@
 from app.FeatureRequests.serializers import FeatureRequestSchema
+from app.Clients.models import Client
+from app.Users.models import User
+from app.FeatureRequests.models import FeatureRequest
+from datetime import datetime
 import json
 
 class TestFeatureRequestsViewsGetById(object):
@@ -35,10 +39,50 @@ class TestFeatureRequestsViewsGet(object):
 
     
 
-class TestFeatureRequestsViews(object):
+class TestFeatureRequestsViewsPost(object):
     
     def test_post(self, app, db, session):
-        pass
+        client = app.test_client()
+        client_john = Client.create(name='client John')
+        john = User.create(username='john', email='h@g.com')
+        response = client.post('/feature_requests/', 
+            data=json.dumps({
+                'title':'a feature request',
+                'description':'a description',
+                'client_id':client_john.id,
+                'client_priority':1,
+                'user_id':john.id,
+                'target_date':str(datetime.utcnow()),
+                'product_area':'Policies'}
+            ),
+            headers={'Content-Type':'application/json'}
+        )
+
+        data = json.loads(response.get_data())
+        instance = FeatureRequest.query.get(data['id'])
+        
+        assert response.status_code == 200
+        assert instance.title == data['title']
+        assert instance.client_priority == data['client_priority']
+        assert instance.product_area.value == data['product_area']
+    
+    def test_post_non_json(self, app, db, session):
+        client = app.test_client()
+        response = client.post('/feature_requests/', 
+            data={
+                'title':'a feature request',
+                'description':'a description',
+                'client_id':1,
+                'client_priority':1,
+                'user_id':1,
+                'target_date':str(datetime.utcnow()),
+                'product_area':'Policies'
+            })
+        
+        assert response.status_code == 200
+        data = json.loads(response.get_data())
+        assert data['status'] == 400
+        
 
     def test_put(self, app, db, session):
         pass

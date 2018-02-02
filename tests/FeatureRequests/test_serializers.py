@@ -10,7 +10,7 @@ class TestFeatureRequestSchema(object):
     sanity check test
     """
 
-    def test_init(self, app, db, session):
+    def test_serialize(self, app, db, session):
         client_john = Client.create(name='client John')
         john = User.create(username='john', email='h@g.com')
         feature = FeatureRequest.create(
