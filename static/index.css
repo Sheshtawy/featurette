@@ -8,3 +8,9 @@
 .featurette-body {
     padding-top: 20px;
 }
+
+span i {
+    position: relative;
+    top: 2px;
+    font-size: 17px !important
+}

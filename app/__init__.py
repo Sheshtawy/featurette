@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import _app_ctx_stack
+from flask import _app_ctx_stack, url_for, render_template
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy import create_engine
 from flask_sqlalchemy import BaseQuery
@@ -7,6 +7,9 @@ from app.db import db
 from app.ma import ma
 
 from app.FeatureRequests.views import FeatureRequestsViews
+from app.Users.models import User
+from app.Clients.models import Client
+from app.FeatureRequests.models import FeatureRequest
 # def create_app(name, config, config_type):
 #     """
 #     App factory
@@ -42,6 +45,12 @@ def create_app(name_handler, config_object):
     
     db.init_app(app)
     ma.init_app(app)
+    with app.app_context():
+        db.create_all()
+    
+    @app.route('/')
+    def root():
+        return render_template('index.html')
 
     @app.teardown_appcontext
     def teardown(exception=None):

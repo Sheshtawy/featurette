@@ -10,29 +10,100 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='index.css')}}">
 </head>
-<body>
+<body class="bg-light">
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="#">Featurette</a>
     </nav>
 
-    <div class="container-fluid bg-light featurette-body">
-        <div class="card featurette-card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link float-right">edit</a>
+    <div class="container-fluid featurette-body">
+        <div id='root' data-bind="foreach: featureRequests">
+            <div class="card featurette-card">
+                <div class="card-body">
+                  <h5 class="card-title"><span data-bind="text: title()"></span> <span class="badge badge-info float-right" data-bind="text: clientPriority()"></span></h5>
+                  <h6 class="card-subtitle mb-2 text-muted"><i class="material-icons md-18">alarm</i> <span data-bind="text: targetDate()"></span> . <span data-bind="text: client().name"></span></h6>
+                  <p class="card-text" data-bind="text: description"></p>
+                  <a href="#" class="card-link float-right" data-bind="click: openEditModal">edit</a>
+                </div>
             </div>
-        </div>
-
-        <div class="card featurette-card">
-            <div class="card-body">
-              <h5 class="card-title">Card title</h5>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-              <a href="#" class="card-link float-right">edit</a>
+            
+            <div class="modal fade " tabindex="-1" role="dialog" id="editFeatureRequest" aria-labelledby="editFeatureRequest" aria-hidden="true">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Edit Feature Request</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        
+                        <div class="modal-body">
+                            <form action="" class="">
+                                <!-- title -->
+                                <div class="form-group">
+                                    <label for="inputTitle">Title</label>
+                                    <input type="text" class="form-control" id="inputTitle" placeholder="1234 Main St" data-bind="value: title()">
+                                </div>
+        
+                                <!-- desc -->
+                                <div class="form-group">
+                                    <label for="inputDescription">Description</label>
+                                    <input type="textarea" class="form-control" id="inputDescription" placeholder="1234 Main St" data-bind="attr: {value: description()}">
+                                </div>
+        
+                                <!-- client -->
+                                <div class="form-group">
+                                    <label for="client">Client</label>
+                                    <select class="form-control" id="client" data-bind="value: client.name">
+                                        <option>Client A</option>
+                                        <option>Client B</option>
+                                        <option>Client C</option>
+                                    </select>
+                                </div>
+        
+                                <!-- target-date -->
+                                <div class="form-group">
+                                    <label for="inputTargetDate">Target Date</label>
+                                    <input type="text" class="form-control" id="inputTargetDate" placeholder="1234 Main St" data-bind="value: targetDate()">
+                                </div>
+        
+                                <div class="for-row">
+                                    <!-- client-priority -->
+                                    <div class="form-group">
+                                        <label for="inputPriority">Priority</label>
+                                        <input type="text" class="form-control" id="inputPriority" placeholder="1234 Main St" data-bind="attr: {value: clientPriority()}">
+                                    </div>
+                                    <!-- product area -->
+                                    <div class="form-group">
+                                        <label for="productArea">Product Area</label>
+                                        <select class="form-control" id="productArea" data-bind="attr: {value: productArea()}">
+                                            <option>Policies</option>
+                                            <option>Billing</option>
+                                            <option>Claims</option>
+                                            <option>Reports</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+            
+                        <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-primary">Save changes</button>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
 
+        </div>
+        
     </div>
-    
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" crossorigin="anonymous"></script>
+    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script src="{{url_for('static', filename='knockout-3.4.2.debug.js')}}"></script>
+    <script src="{{url_for('static', filename='index.js')}}"></script>
 </body>
 </html>
