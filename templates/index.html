@@ -10,99 +10,168 @@
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" crossorigin="anonymous">
     <link rel="stylesheet" href="{{url_for('static', filename='index.css')}}">
 </head>
-<body class="bg-light">
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<body class="bg-light" id='root'>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary fixed-navbar">
         <a class="navbar-brand" href="#">Featurette</a>
     </nav>
 
-    <div class="container-fluid featurette-body">
-        <div id='root' data-bind="foreach: featureRequests">
+    <div class="container-fluid featurette-body" style="padding-top:70px">
+        <div data-bind="foreach: featureRequests">
             <div class="card featurette-card">
                 <div class="card-body">
                   <h5 class="card-title"><span data-bind="text: title()"></span> <span class="badge badge-info float-right" data-bind="text: clientPriority()"></span></h5>
                   <h6 class="card-subtitle mb-2 text-muted"><i class="material-icons md-18">alarm</i> <span data-bind="text: targetDate()"></span> . <span data-bind="text: client().name"></span></h6>
                   <p class="card-text" data-bind="text: description"></p>
-                  <a href="#" class="card-link float-right" data-bind="click: openEditModal">edit</a>
+                  <a href="#" class="card-link float-right" data-bind="click: $parent.setModalData.bind($root)">edit</a>
                 </div>
             </div>
-            
-            <div class="modal fade " tabindex="-1" role="dialog" id="editFeatureRequest" aria-labelledby="editFeatureRequest" aria-hidden="true">
-                <div class="modal-dialog modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Edit Feature Request</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        
-                        <div class="modal-body">
-                            <form action="" class="">
-                                <!-- title -->
+        </div>
+
+        <div class="modal fade " tabindex="-1" role="dialog" id="editFeatureRequest">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Edit Feature Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form action="" class="">
+                            <!-- title -->
+                            <div class="form-group">
+                                <label for="inputTitle">Title</label>
+                                <input type="text" data-bind="attr: { value: $root.modalData.title}" class="form-control" id="inputTitle" placeholder="1234 Main St">
+                            </div>
+    
+                            <!-- desc -->
+                            <div class="form-group">
+                                <label for="inputDescription">Description</label>
+                                <input type="textarea" class="form-control" id="inputDescription" placeholder="1234 Main St" data-bind="value: modalData.description">
+                            </div>
+    
+                            <!-- client -->
+                            <div class="form-group">
+                                <label for="client">Client</label>
+                                <select class="form-control" id="client" data-bind="options: clients">
+                                </select>
+                            </div>
+    
+                            <!-- target-date -->
+                            <div class="form-group">
+                                <label for="inputTargetDate">Target Date</label>
+                                <input type="text" class="form-control" id="inputTargetDate" placeholder="1234 Main St" data-bind="value: modalData.targetDate">
+                            </div>
+    
+                            <div class="for-row">
+                                <!-- client-priority -->
                                 <div class="form-group">
-                                    <label for="inputTitle">Title</label>
-                                    <input type="text" class="form-control" id="inputTitle" placeholder="1234 Main St" data-bind="value: title()">
+                                    <label for="inputPriority">Priority</label>
+                                    <input type="text" class="form-control" id="inputPriority" placeholder="1234 Main St" data-bind="value: modalData.clientPriority">
                                 </div>
-        
-                                <!-- desc -->
+                                <!-- product area -->
                                 <div class="form-group">
-                                    <label for="inputDescription">Description</label>
-                                    <input type="textarea" class="form-control" id="inputDescription" placeholder="1234 Main St" data-bind="attr: {value: description()}">
-                                </div>
-        
-                                <!-- client -->
-                                <div class="form-group">
-                                    <label for="client">Client</label>
-                                    <select class="form-control" id="client" data-bind="value: client.name">
-                                        <option>Client A</option>
-                                        <option>Client B</option>
-                                        <option>Client C</option>
+                                    <label for="productArea">Product Area</label>
+                                    <select class="form-control" id="productArea" data-bind="value: modalData.productArea">
+                                        <option>Policies</option>
+                                        <option>Billing</option>
+                                        <option>Claims</option>
+                                        <option>Reports</option>
                                     </select>
                                 </div>
+                            </div>
+                        </form>
+                    </div>
         
-                                <!-- target-date -->
-                                <div class="form-group">
-                                    <label for="inputTargetDate">Target Date</label>
-                                    <input type="text" class="form-control" id="inputTargetDate" placeholder="1234 Main St" data-bind="value: targetDate()">
-                                </div>
-        
-                                <div class="for-row">
-                                    <!-- client-priority -->
-                                    <div class="form-group">
-                                        <label for="inputPriority">Priority</label>
-                                        <input type="text" class="form-control" id="inputPriority" placeholder="1234 Main St" data-bind="attr: {value: clientPriority()}">
-                                    </div>
-                                    <!-- product area -->
-                                    <div class="form-group">
-                                        <label for="productArea">Product Area</label>
-                                        <select class="form-control" id="productArea" data-bind="attr: {value: productArea()}">
-                                            <option>Policies</option>
-                                            <option>Billing</option>
-                                            <option>Claims</option>
-                                            <option>Reports</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-            
-                        <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary">Save changes</button>
-                        </div>
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
                     </div>
                 </div>
             </div>
+        </div>
 
+        <div class="modal fade " tabindex="-1" role="dialog" id="addFeatureRequest">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Feature Request</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    
+                    <div class="modal-body">
+                        <form id="addFeatureRquestForm">
+                            <!-- title -->
+                            <div class="form-group">
+                                <label for="inputTitle">Title</label>
+                                <input type="text" class="form-control" id="inputTitle" name="title" placeholder="Add title">
+                            </div>
+                            <div class="invalid-feedback" data-bind="visible: title.errors.required, text: title.errors.required">
+                                    title is required.
+                            </div>
+    
+                            <!-- desc -->
+                            <div class="form-group">
+                                <label for="inputDescription">Description</label>
+                                <input type="textarea" class="form-control" id="inputDescription" name="description" placeholder="Add description">
+                            </div>
+    
+                            <!-- client -->
+                            <div class="form-group">
+                                <label for="client">Client</label>
+                                <select class="form-control" id="client" data-bind="value: modalData.client.name">
+                                    <option>Client A</option>
+                                    <option>Client B</option>
+                                    <option>Client C</option>
+                                </select>
+                            </div>
+    
+                            <!-- target-date -->
+                            <div class="form-group">
+                                <label for="inputTargetDate">Target Date</label>
+                                <input type="text" class="form-control" id="inputTargetDate" name="target_date" placeholder="Choose target date">
+                            </div>
+    
+                            <div class="for-row">
+                                <!-- client-priority -->
+                                <div class="form-group">
+                                    <label for="inputPriority">Priority</label>
+                                    <input type="text" class="form-control" id="inputPriority" name="client_priority" placeholder="Choose priority">
+                                </div>
+                                <!-- product area -->
+                                <div class="form-group">
+                                    <label for="productArea">Product Area</label>
+                                    <select class="form-control" id="productArea" name="product_area" data-bind="options: productAreaEnum">
+                                    </select>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+        
+                    <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary" data-bind="click: addFeatureRequest">Create</button>
+                    </div>
+                </div>
+            </div>
         </div>
         
     </div>
 
+    <button type="button" class="btn btn-warning bmd-btn-fab action-btn" data-toggle="tooltip" data-placement="left" title="Add new feature" data-bind="click: ToggleAddFeature">
+        <i class="material-icons">add</i>
+    </button>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" crossorigin="anonymous"></script>
-    <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+    <script>$(document).ready(function() { 
+        $('body').bootstrapMaterialDesign(); 
+        $('[data-toggle="tooltip"]').tooltip();
+    });</script>
     <script src="{{url_for('static', filename='knockout-3.4.2.debug.js')}}"></script>
     <script src="{{url_for('static', filename='index.js')}}"></script>
 </body>

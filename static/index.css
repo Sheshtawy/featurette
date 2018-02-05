@@ -14,3 +14,15 @@ span i {
     top: 2px;
     font-size: 17px !important
 }
+
+.fixed-navbar {
+    position: fixed;
+    width: 100%;
+}
+
+.action-btn {
+    position: fixed;
+    z-index: 1000;
+    right: 20px;
+    bottom: 20px;
+}
